@@ -50,4 +50,4 @@ schema:
   account_check_interval: int
   include_ps4_devices: bool
 stdin: true
-image: "ghcr.io/RobertD502/ps5-mqtt/{arch}"
+image: ghcr.io/robertd502/ps5-mqtt/{arch}

@@ -28,6 +28,7 @@ function* checkDevicesState() {
                 throw new Error(stderr)
             }
 
+            debug(stdout);
             const updatedDevice: Device = JSON.parse(stdout);
 
             if (

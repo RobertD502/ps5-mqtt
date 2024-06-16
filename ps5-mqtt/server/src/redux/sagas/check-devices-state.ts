@@ -28,15 +28,14 @@ function* checkDevicesState() {
                 throw new Error(stderr)
             }
 
-            if (stdout) {
-                const updatedDevice: Device = JSON.parse(stdout);
-            } else {
+            if (!stdout) {
                 throw new Error("No data received from Playstation. If this error continues, " +
                                 "your Playstation is likely powered off or unreachable - it will " +
                                 "not be available until it is in either rest mode/powered on and reachable.");
-            }
+            } 
             
             debug(stdout);
+            const updatedDevice: Device = JSON.parse(stdout);
 
             if (
                 device.transitioning
@@ -73,8 +72,10 @@ function* checkDevicesState() {
                     activity: undefined,
                 })
             );
-
-            errorLogger(e);
+            // Prevent logging failure to parse empty stdout
+            if(e.constructor !== SyntaxError) {
+                errorLogger(e);
+            }
         }
     }
 }
